@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "rootDirs": ["src", "../shared/src"]
+  },
+  "include": ["src"],
+  "exclude": [
+    "src/agents/**",
+    "src/discovery-cli.ts",
+    "src/redis-client.ts",
+    "src/smart-cli.ts",
+    "src/orchestrator.ts",
+    "src/zelle-agent.ts",
+    "src/types.ts"
+  ]
+}

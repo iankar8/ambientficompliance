@@ -1,0 +1,34 @@
+{
+  "name": "arcanared",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI Adversarial Testing Platform monorepo",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "lint": "echo 'Linting placeholder'",
+    "run:pipeline": "npm run build --workspace @arcanared/shared && npm run build --workspace @arcanared/explorer-service && npm run build --workspace @arcanared/tool-executor-playwright && npm run build --workspace @arcanared/runner-service && npm run build --workspace @arcanared/artifact-processor && npm run build --workspace @arcanared/workflow-compiler && npm run build --workspace @arcanared/score-service && npm run build --workspace @arcanared/policy-engine && npm run build --workspace @arcanared/exporter-service && npm run build --workspace @arcanared/observer-service && npm run build --workspace @arcanared/pipeline-coordinator && node --enable-source-maps packages/pipeline-coordinator/dist/pipeline-coordinator/src/cli.js",
+    "pipeline:smart": "npm run build && node packages/pipeline-coordinator/dist/smart-cli.js",
+    "pipeline:compare": "npm run build && node packages/explorer-service/examples/navigation-comparison.js",
+    "discovery:run": "npm run build && node packages/pipeline-coordinator/dist/discovery-cli.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/node": "^24.7.2",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10"
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
+</head>
+<body>
+<div class="mermaid">
+flowchart TB
+    subgraph Victim [Victim]
+        direction LR
+        U1[User receives text to call phone number]
+        U3[Reads OTP Aloud]
+        U4[Hears Closure Message]
+    end
+
+    subgraph Tech [Tech Flow]
+        direction LR
+        T0[VAPI agent answers call]
+        T1[Phone call connects to VAPI agent]
+        T2[Store PII in Redis Blackboard]
+        T3[Fork Exploitation Agents]
+        T4a[Login to account]
+        T4b[Change password]
+        T4c[Zelle $500]
+    end
+
+    subgraph Copy [Agent Copy]
+        direction LR
+        C1["Agent: 'Hello Mr. Smith, this is Wells Fargo Fraud Prevention...' "]
+        C2["Agent: 'Can you confirm your Wells Fargo username?' "]
+        C3["Agent: 'I've sent you a code; please read it aloud.' "]
+        C4["Agent: 'Your account is now secure. Goodbye.' "]
+    end
+
+    U1 --> T0
+    T0 --> T1
+    T1 --> C1
+    C1 --> C2
+    C2 --> T2
+    T2 --> C3
+    C3 --> U3
+    U3 --> T3
+    T3 --> T4a
+    T4a --> T4b
+    T4b --> T4c
+    T4c --> C4
+    C4 --> U4
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "name": "@arcanared/pipeline-coordinator",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "dev:smart": "tsx watch src/smart-cli.ts",
+    "dev:zelle": "tsx watch src/zelle-agent.ts",
+    "start": "tsx src/cli.ts",
+    "start:smart": "tsx src/smart-cli.ts",
+    "start:zelle": "tsx src/zelle-agent.ts",
+    "compare": "tsx ../explorer-service/examples/navigation-comparison.ts",
+    "lint": "eslint 'src/**/*.ts'",
+    "format": "prettier --write 'src/**/*.ts'",
+    "test": "echo 'No tests yet'"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.3",
+    "@arcanared/artifact-processor": "file:../artifact-processor",
+    "@arcanared/demo-bank": "file:../demo-bank",
+    "@arcanared/discovery-agent": "file:../discovery-agent",
+    "@arcanared/evidence-bundle": "file:../evidence-bundle",
+    "@arcanared/explorer-service": "file:../explorer-service",
+    "@arcanared/exporter-service": "file:../exporter-service",
+    "@arcanared/observer-service": "file:../observer-service",
+    "@arcanared/playback-viewer": "file:../playback-viewer",
+    "@arcanared/policy-engine": "file:../policy-engine",
+    "@arcanared/runner-service": "file:../runner-service",
+    "@arcanared/score-service": "file:../score-service",
+    "@arcanared/shared": "file:../shared",
+    "@arcanared/simple-scorer": "file:../simple-scorer",
+    "@arcanared/tool-executor-playwright": "file:../tool-executor-playwright",
+    "@arcanared/workflow-compiler": "file:../workflow-compiler",
+    "ioredis": "^5.3.2"
+  }
+}

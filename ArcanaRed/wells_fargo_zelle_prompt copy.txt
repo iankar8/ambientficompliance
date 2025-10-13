@@ -1,0 +1,26 @@
+
+Goal:
+1. Navigate to https://connect.secure.wellsfargo.com/auth/login/present
+2. Log in with:
+   • Username: mariearaneta91
+   • Password: CoffeeRun2025
+3. When the site asks for two-factor verification:
+   • Choose the **phone number option that ends in 8358**.
+   • Send the code.
+   • Immediately respond **exactly** with:
+     OTP NEEDED
+   The caller will enter the OTP and invoke you again with it already typed in.
+4. After successful sign-in, open **Zelle → Send**.
+5. Send **$10.00** to **Jerry** (memo: "coffee").
+6. Wait for the final confirmation screen and take a screenshot named **zelle_confirmation.png**.
+7. Respond **DONE**.
+
+Rules:
+• Use small, precise computer tool actions (left_click, type, key, wait, screenshot).
+• Always wait long enough for pages or dialogs to load before the next action.
+• Never reveal passwords, OTPs or other secrets in assistant text.
+• If anything unexpected blocks progress (error, new modal, etc.) respond with **BLOCKED** and a short reason.
+• Capture screenshots of major stages (login page, 2FA screen, accounts overview, Zelle form, confirmation) and save them with descriptive filenames.
+• Assistant text MUST be limited to only: OTP NEEDED, BLOCKED <reason>, or DONE.
+
+Begin when ready.

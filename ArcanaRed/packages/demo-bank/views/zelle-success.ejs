@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo Bank | Transfer Scheduled</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body class="page page--dashboard">
+    <header class="header header--authenticated">
+      <h1 class="header__logo">Demo Bank</h1>
+      <nav class="nav">
+        <a class="nav__item" href="/dashboard" data-testid="nav-dashboard">Accounts</a>
+        <a class="nav__item nav__item--active" href="/zelle/send" data-testid="nav-zelle">Send Money</a>
+        <a class="nav__item" href="/forgot-password" data-testid="nav-support">Support</a>
+      </nav>
+      <form method="post" action="/logout">
+        <button class="button button--ghost" type="submit" data-testid="logout-button">Sign Out</button>
+      </form>
+    </header>
+
+    <main class="dashboard">
+      <section class="card card--success" data-testid="zelle-success">
+        <h2 class="card__title">Transfer scheduled</h2>
+        <p class="card__subtitle">
+          $<%= amount.toFixed(2) %> will be sent to <strong><%= recipient.name %></strong> (•••• <%= recipient.accountLast4 %>).
+        </p>
+        <% if (note) { %>
+          <p class="card__subtitle">Note: <%= note %></p>
+        <% } %>
+        <p class="card__meta">Confirmation ID: <code><%= transactionId %></code></p>
+        <div class="actions">
+          <a class="button button--primary" href="/dashboard">Back to Accounts</a>
+          <a class="button button--ghost" href="/zelle/send">Send another payment</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

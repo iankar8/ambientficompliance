@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo Bank | Sign In</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body class="page page--auth">
+    <header class="header">
+      <h1 class="header__logo">Demo Bank</h1>
+    </header>
+    <main class="auth">
+      <section class="card">
+        <h2 class="card__title">Secure Sign In</h2>
+        <% if (flash) { %>
+          <div class="alert alert--<%= flash.type %>" data-testid="login-alert"><%= flash.message %></div>
+        <% } %>
+        <form method="post" action="/login" data-testid="login-form">
+          <input type="hidden" name="nextUrl" value="<%= nextUrl %>" />
+          <label class="form__label" for="username">User ID</label>
+          <input
+            class="form__input"
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            data-testid="login-username"
+            required
+          />
+
+          <label class="form__label" for="password">Password</label>
+          <input
+            class="form__input"
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            data-testid="login-password"
+            required
+          />
+
+          <button class="button button--primary" type="submit" data-testid="login-submit">
+            Sign In
+          </button>
+        </form>
+        <div class="auth__links">
+          <a href="/forgot-password" data-testid="forgot-password-link">Forgot User ID or Password?</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

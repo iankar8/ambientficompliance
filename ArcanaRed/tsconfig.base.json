@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@arcanared/shared": ["packages/shared/src"],
+      "@arcanared/shared/*": ["packages/shared/src/*"],
+      "@arcanared/explorer-service": ["packages/explorer-service/src"],
+      "@arcanared/explorer-service/*": ["packages/explorer-service/src/*"],
+      "@arcanared/workflow-compiler": ["packages/workflow-compiler/src"],
+      "@arcanared/workflow-compiler/*": ["packages/workflow-compiler/src/*"],
+      "@arcanared/runner-service": ["packages/runner-service/src"],
+      "@arcanared/runner-service/*": ["packages/runner-service/src/*"],
+      "@arcanared/artifact-processor": ["packages/artifact-processor/src"],
+      "@arcanared/artifact-processor/*": ["packages/artifact-processor/src/*"],
+      "@arcanared/score-service": ["packages/score-service/src"],
+      "@arcanared/score-service/*": ["packages/score-service/src/*"],
+      "@arcanared/policy-engine": ["packages/policy-engine/src"],
+      "@arcanared/policy-engine/*": ["packages/policy-engine/src/*"],
+      "@arcanared/exporter-service": ["packages/exporter-service/src"],
+      "@arcanared/exporter-service/*": ["packages/exporter-service/src/*"],
+      "@arcanared/observer-service": ["packages/observer-service/src"],
+      "@arcanared/observer-service/*": ["packages/observer-service/src/*"],
+      "@arcanared/tool-executor-playwright": ["packages/tool-executor-playwright/src"],
+      "@arcanared/tool-executor-playwright/*": ["packages/tool-executor-playwright/src/*"]
+    }
+  }
+}

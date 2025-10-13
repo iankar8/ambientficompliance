@@ -1,0 +1,12 @@
+{
+  "name": "@arcanared/playback-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'TODO build playback viewer'",
+    "dev": "echo 'TODO dev server'",
+    "lint": "echo 'No lint configured'",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,css,html}'",
+    "test": "echo 'No tests yet'"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@arcanared/exporter-service",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "lint": "eslint 'src/**/*.ts'",
+    "format": "prettier --write 'src/**/*.ts'",
+    "test": "echo 'No tests yet'"
+  },
+  "dependencies": {
+    "@arcanared/shared": "file:../shared"
+  }
+}

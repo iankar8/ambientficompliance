@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo Bank | Account Overview</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body class="page page--dashboard">
+    <header class="header header--authenticated">
+      <h1 class="header__logo">Demo Bank</h1>
+      <nav class="nav" data-testid="nav">
+        <a class="nav__item nav__item--active" href="/dashboard" data-testid="nav-dashboard">Accounts</a>
+        <a class="nav__item" href="/zelle/send" data-testid="nav-zelle">Send Money</a>
+        <a class="nav__item" href="/forgot-password" data-testid="nav-support">Support</a>
+      </nav>
+      <form method="post" action="/logout">
+        <button class="button button--ghost" type="submit" data-testid="logout-button">Sign Out</button>
+      </form>
+    </header>
+
+    <main class="dashboard">
+      <section class="card">
+        <h2 class="card__title">Welcome back, <%= user?.name %></h2>
+        <p class="balance" data-testid="account-balance">
+          Available balance
+          <strong>$<%= (user?.balance ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2 }) %></strong>
+        </p>
+        <div class="actions">
+          <a class="button button--primary" href="/zelle/send" data-testid="start-zelle-button">Send money with Zelle</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3 class="card__title">Recent activity</h3>
+        <% if (recentTransactions.length === 0) { %>
+          <p data-testid="empty-transactions">No recent transfers.</p>
+        <% } else { %>
+          <table class="table" data-testid="transactions-table">
+            <thead>
+              <tr>
+                <th>Recipient</th>
+                <th>Amount</th>
+                <th>Note</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% recentTransactions.forEach((tx) => { %>
+                <% const recipient = recipients.find((rec) => rec.id === tx.recipientId); %>
+                <tr>
+                  <td><%= recipient?.name %></td>
+                  <td>$<%= tx.amount.toFixed(2) %></td>
+                  <td><%= tx.note || '&#8212;' %></td>
+                  <td><%= new Date(tx.createdAt).toLocaleString() %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>

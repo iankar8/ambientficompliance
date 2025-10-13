@@ -1,0 +1,18 @@
+{
+  "name": "@arcanared/runner-service",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/runner-service/src/index.js",
+  "types": "dist/runner-service/src/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "lint": "eslint 'src/**/*.ts'",
+    "format": "prettier --write 'src/**/*.ts'",
+    "test": "echo 'No tests yet'"
+  },
+  "dependencies": {
+    "@arcanared/explorer-service": "file:../explorer-service",
+    "@arcanared/shared": "file:../shared"
+  }
+}
