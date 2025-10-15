@@ -1,18 +1,27 @@
 {
   "name": "arcanared",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "AI Adversarial Testing Platform monorepo",
-  "workspaces": [
-    "packages/*"
-  ],
+  "description": "AI Adversarial Testing Platform - Consolidated Edition",
+  "workspaces": {
+    "packages": [
+      "packages/arcanared-core",
+      "packages/demo-bank",
+      "packages/explorer-service",
+      "packages/parlant-bridge/typescript",
+      "packages/shared",
+      "packages/tool-executor-playwright",
+      "packages/video-intelligence"
+    ]
+  },
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "lint": "echo 'Linting placeholder'",
-    "run:pipeline": "npm run build --workspace @arcanared/shared && npm run build --workspace @arcanared/explorer-service && npm run build --workspace @arcanared/tool-executor-playwright && npm run build --workspace @arcanared/runner-service && npm run build --workspace @arcanared/artifact-processor && npm run build --workspace @arcanared/workflow-compiler && npm run build --workspace @arcanared/score-service && npm run build --workspace @arcanared/policy-engine && npm run build --workspace @arcanared/exporter-service && npm run build --workspace @arcanared/observer-service && npm run build --workspace @arcanared/pipeline-coordinator && node --enable-source-maps packages/pipeline-coordinator/dist/pipeline-coordinator/src/cli.js",
-    "pipeline:smart": "npm run build && node packages/pipeline-coordinator/dist/smart-cli.js",
-    "pipeline:compare": "npm run build && node packages/explorer-service/examples/navigation-comparison.js",
-    "discovery:run": "npm run build && node packages/pipeline-coordinator/dist/discovery-cli.js"
+    "discovery:run": "npm run build && node packages/arcanared-core/dist/arcanared-core/src/cli/discovery.js",
+    "demo-bank": "cd packages/demo-bank && npm start",
+    "parlant:services": "cd packages/parlant-bridge && docker-compose up",
+    "parlant:bridge": "cd packages/parlant-bridge/typescript && npm start",
+    "parlant:python": "cd packages/parlant-bridge/python && python server.py"
   },
   "engines": {
     "node": ">=20.0.0"
