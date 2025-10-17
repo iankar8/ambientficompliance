@@ -4,7 +4,8 @@
  */
 
 import { withRetry, RateLimiter } from "@/lib/retry";
-import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { getOpenRouterClient } from "@/lib/integrations/openrouter";
+import { getFirecrawlClient } from "@/lib/integrations/firecrawl";
 
 const rateLimiter = new RateLimiter(3, 500); // Max 3 concurrent, 500ms between calls
 
@@ -73,8 +74,7 @@ export async function researcher(input: ResearcherInput): Promise<any[]> {
       
       dossiers.push({ contact_id: contact.id, signal_id: contact.signal_id ?? null, dossier });
 
-      // Store in database
-      await storeDossier(contact.id, dossier, contact.signal_id ?? null);
+      // Note: Database storage will be handled by API route
     } catch (error) {
       console.error(`Failed to build dossier for ${contact.name}:`, error);
       // Add minimal dossier for failed contacts
@@ -105,7 +105,7 @@ async function buildDossier(contact: {
   company_name: string;
   linkedin_url?: string;
 }): Promise<Dossier> {
-  const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+  const openrouter = getOpenRouterClient();
 
   // Gather public sources
   const sources = await gatherPublicSources(contact);
@@ -116,30 +116,17 @@ async function buildDossier(contact: {
     .replace("{Title}", contact.title)
     .replace("{Company}", contact.company_name);
 
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": ANTHROPIC_API_KEY!,
-      "anthropic-version": "2023-06-01",
-      "Content-Type": "application/json",
+  const response = await openrouter.claude([
+    {
+      role: "user",
+      content: `${prompt}\n\nSources:\n${sources.join("\n\n")}`,
     },
-    body: JSON.stringify({
-      model: "claude-3-haiku-20240307",
-      max_tokens: 4000,
-      messages: [
-        {
-          role: "user",
-          content: `${prompt}\n\nSources:\n${sources.join("\n\n")}`,
-        },
-      ],
-    }),
+  ], {
+    max_tokens: 4000,
   });
 
-  const data = await response.json();
-  const content = data.content[0]?.text;
-
   try {
-    return JSON.parse(content);
+    return JSON.parse(response);
   } catch {
     // Return minimal dossier if parsing fails
     return {
@@ -168,47 +155,28 @@ async function gatherPublicSources(contact: {
   linkedin_url?: string;
 }): Promise<string[]> {
   const sources: string[] = [];
+  const firecrawl = getFirecrawlClient();
 
-  // Google search for public info
-  const searchQueries = [
-    `"${contact.name}" ${contact.company_name}`,
-    `"${contact.name}" interview`,
-    `"${contact.name}" conference talk`,
-  ];
+  // Search for company website/about page
+  try {
+    const companyUrl = `https://www.google.com/search?q=${encodeURIComponent(contact.company_name + ' about')}`;
+    const result = await firecrawl.scrapeMarkdown(companyUrl);
+    if (result) {
+      sources.push(`Company info: ${result.slice(0, 1000)}`);
+    }
+  } catch (error) {
+    console.error('Error gathering company sources:', error);
+  }
 
-  // TODO: Implement web search via Firecrawl or Google Custom Search API
-  // For now, return placeholder
-  sources.push(`Public profile: ${contact.name} at ${contact.company_name}`);
+  // Add LinkedIn if available
+  if (contact.linkedin_url) {
+    sources.push(`LinkedIn: ${contact.linkedin_url}`);
+  }
+
+  // Fallback
+  if (sources.length === 0) {
+    sources.push(`Public profile: ${contact.name} at ${contact.company_name}`);
+  }
 
   return sources;
-}
-
-async function storeDossier(
-  contactId: string,
-  dossier: Dossier,
-  signalId: string | null = null
-): Promise<void> {
-  const supabase = getSupabaseServerClient();
-
-  await supabase.from("dossiers").upsert({
-    contact_id: contactId,
-    compiled_at: new Date().toISOString(),
-    snapshot: dossier.snapshot,
-    timeline: dossier.timeline,
-    public_pov: dossier.public_pov,
-    pain_hypotheses: dossier.pain_hypotheses,
-    hooks: dossier.hooks,
-    interests_public: dossier.interests_public,
-    personal_public: dossier.personal_public,
-    links: dossier.links,
-    quality_score: dossier.quality_score,
-  });
-
-  // Update contact state
-  await supabase.from("contact_states").insert({
-    contact_id: contactId,
-    signal_id: signalId,
-    state: "PERSON_DOSSIER",
-    updated_at: new Date().toISOString(),
-  });
 }

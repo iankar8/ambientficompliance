@@ -3,7 +3,7 @@
  * Generates email/LinkedIn drafts tuned by dossier POV
  */
 
-import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { getOpenRouterClient } from "@/lib/integrations/openrouter";
 
 interface DrafterInput {
   contacts: Array<{
@@ -42,8 +42,7 @@ export async function outreachDrafter(input: DrafterInput): Promise<any[]> {
       const draft = await generateDraft(contact, variant, attach_evidence);
       drafts.push({ contact_id: contact.id, signal_id: contact.signal_id ?? null, ...draft });
 
-      // Store in database
-      await storeDraft(contact.id, draft, contact.signal_id ?? null);
+      // Note: Database storage will be handled by API route
     } catch (error) {
       console.error(`Failed to draft for ${contact.name}:`, error);
     }
@@ -57,7 +56,7 @@ async function generateDraft(
   variant: string,
   attach_evidence?: boolean
 ): Promise<{ subject: string; body: string }> {
-  const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+  const openrouter = getOpenRouterClient();
   const CALENDLY_LINK = process.env.CALENDLY_LINK;
 
   const prompt = variant === "followup" ? EMAIL_FOLLOWUP_PROMPT : EMAIL_INITIAL_PROMPT;
@@ -70,59 +69,21 @@ async function generateDraft(
     .replace("{PainHypothesis}", contact.dossier?.pain_hypotheses?.[0] || "")
     .replace("{CALENDLY_LINK}", CALENDLY_LINK || "");
 
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": ANTHROPIC_API_KEY!,
-      "anthropic-version": "2023-06-01",
-      "Content-Type": "application/json",
+  const response = await openrouter.claude([
+    {
+      role: "user",
+      content: contextPrompt,
     },
-    body: JSON.stringify({
-      model: "claude-3-haiku-20240307",
-      max_tokens: 500,
-      messages: [
-        {
-          role: "user",
-          content: contextPrompt,
-        },
-      ],
-    }),
+  ], {
+    max_tokens: 500,
   });
 
-  const data = await response.json();
-  const content = data.content[0]?.text || "";
-
   // Parse SUBJECT and BODY
-  const subjectMatch = content.match(/SUBJECT:\s*(.+)/);
-  const bodyMatch = content.match(/BODY:\s*([\s\S]+)/);
+  const subjectMatch = response.match(/SUBJECT:\s*(.+)/);
+  const bodyMatch = response.match(/BODY:\s*([\s\S]+)/);
 
   return {
     subject: subjectMatch?.[1]?.trim() || "Quick question",
-    body: bodyMatch?.[1]?.trim() || content,
+    body: bodyMatch?.[1]?.trim() || response,
   };
-}
-
-async function storeDraft(
-  contactId: string,
-  draft: { subject: string; body: string },
-  signalId: string | null
-): Promise<void> {
-  const supabase = getSupabaseServerClient();
-
-  await supabase.from("outreach").insert({
-    contact_id: contactId,
-    signal_id: signalId,
-    channel: "email",
-    subject: draft.subject,
-    body: draft.body,
-    status: "draft",
-  });
-
-  // Update contact state
-  await supabase.from("contact_states").insert({
-    contact_id: contactId,
-    signal_id: signalId,
-    state: "INITIAL_DRAFTED",
-    updated_at: new Date().toISOString(),
-  });
 }
