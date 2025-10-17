@@ -1,15 +1,15 @@
 # 🚀 Marketing Radar – Progress Tracker
 
-**Last Updated:** 2025-10-16 7:21 PM PT  
-**Current Sprint:** Sprint 1 - Foundation & N8N Integration  
-**Project Phase:** Development
+**Last Updated:** 2025-10-16 7:28 PM PT  
+**Current Sprint:** Sprint 1 - MVP Push  
+**Project Phase:** Pre-Launch
 
 ---
 
 ## 📊 Current Sprint Overview
 
-**Sprint Period:** Oct 9-16, 2025  
-**Sprint Goal:** Complete infrastructure setup and N8N integration foundation
+**Sprint Period:** Oct 16-21, 2025  
+**Sprint Goal:** Complete MVP for Monday Oct 21 launch
 
 ### ✅ Completed Tasks
 - ✅ Next.js 14 application setup with App Router
@@ -69,10 +69,11 @@
 
 | Milestone | Target Date | Status | Notes |
 |-----------|-------------|--------|-------|
-| N8N Integration Complete | Oct 23 | 🟡 In Progress | Docker setup, API routes, workflows |
-| Agent Implementations Complete | Oct 30 | 🔵 Planned | Firecrawl, Gmail, Browserbase integrations |
-| First Pipeline Test | Nov 6 | 🔵 Planned | End-to-end signal → outreach flow |
-| MVP Launch | Nov 20 | 🔵 Planned | First 20 production sends |
+| **MVP Launch** | **Oct 21 (Mon)** | 🔴 **Critical** | First 20 production sends |
+| Docker & N8N Running | Oct 17 (Thu) | 🟡 In Progress | Fix file sharing, start workflows |
+| Agent API Routes Complete | Oct 18 (Fri) | 🔵 Planned | All 5 agents callable via API |
+| Core Integrations Live | Oct 19 (Sat) | 🔵 Planned | Firecrawl, Gmail minimum viable |
+| End-to-End Pipeline Test | Oct 20 (Sun) | 🔵 Planned | Full signal → outreach flow |
 
 ---
 
@@ -136,23 +137,34 @@
 
 ---
 
-## 🎯 Next Actions
+## 🎯 Next Actions - MVP CRUNCH MODE
 
-### Immediate (This Week)
-1. **Fix Docker File Sharing** - Configure Docker Desktop to allow N8N volume mounts
-2. **Create Agent API Routes** - Build `/app/api/agents/` routes for all 5 agents
-3. **Start N8N Workflows** - Build first workflow (Signal Detection) in N8N UI
+### 🔥 TODAY (Oct 16 - Wed)
+1. **Fix Docker File Sharing** - Configure Docker Desktop, get N8N running
+2. **Start Agent API Routes** - Create `/app/api/agents/signal-scout` and `/classifier-scorer`
+3. **Firecrawl Integration** - Get Signal Scout working with real data
 
-### Short-term (Next 2 Weeks)
-4. **Implement Firecrawl Integration** - Complete Signal Scout and Researcher agents
-5. **Add Error Handling** - Implement try/catch and retry logic across agents
-6. **Fix Signal ID Linking** - Update database inserts to properly link signals
-7. **Build Remaining N8N Workflows** - Complete all 5 core workflows
+### 🔥 TOMORROW (Oct 17 - Thu)
+4. **Complete API Routes** - Finish remaining 3 agent routes (researcher, drafter, mailer)
+5. **Build N8N Workflows** - Create Signal Detection + Classification workflows
+6. **Gmail API Setup** - Configure OAuth, test email sending
 
-### Medium-term (Next Month)
-8. **Gmail API Integration** - Connect Mailer agent to Gmail
-9. **End-to-End Testing** - Test full pipeline from signal detection to outreach
-10. **Monitoring Dashboard** - Build workflow execution tracking UI
+### 🔥 FRIDAY (Oct 18)
+7. **Complete Researcher Agent** - Implement web search, generate dossiers
+8. **Complete Drafter Agent** - Generate email copy from dossiers
+9. **Build Remaining Workflows** - Contact Enrichment + Outreach workflows
+10. **Fix Signal ID Linking** - Ensure all DB records properly linked
+
+### 🔥 WEEKEND (Oct 19-20)
+11. **End-to-End Testing** - Full pipeline from signal → email draft
+12. **Error Handling** - Add try/catch and basic retry logic
+13. **Approvals UI Polish** - Ensure human review gates work smoothly
+14. **Test with Real Data** - Run on 5-10 test companies
+
+### 🚀 MONDAY (Oct 21) - LAUNCH
+15. **Final Checks** - Verify all systems operational
+16. **First Production Run** - Send first 20 emails
+17. **Monitor & Iterate** - Track replies, fix issues in real-time
 
 ---
 
