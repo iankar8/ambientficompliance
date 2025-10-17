@@ -25,10 +25,10 @@
 - ✅ Progress tracking workflow system
 
 ### 🔄 In Progress
-- [ ] Fix Docker file sharing for N8N volumes
+- [x] ~~Fix Docker file sharing for N8N volumes~~ ✅ N8N running on localhost:5678
+- [ ] Create API routes for all 5 agents (`/app/api/agents/`)
 - [ ] Complete Firecrawl integration in Signal Scout agent
 - [ ] Complete web search integration in Researcher agent
-- [ ] Create API routes for all 5 agents (`/app/api/agents/`)
 - [ ] Fix signal_id linking in database inserts
 
 ### 🎯 Upcoming Tasks
