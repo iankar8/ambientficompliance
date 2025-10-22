@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  exa-mcp:
+    image: exa-mcp-server:latest
+    container_name: exa-mcp
+    ports:
+      # Bind to localhost only for security
+      - "127.0.0.1:3001:3001"
+    environment:
+      - EXA_API_KEY=${EXA_API_KEY}
+      - PORT=3001
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - code-capital
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  code-capital:
+    driver: bridge
