@@ -22,7 +22,7 @@ export default function ConsoleLayout({
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
               <Shield className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold text-foreground">Sentinel</span>
+              <span className="text-xl font-bold text-foreground">ArcanaSentinel</span>
               <span className="text-sm text-muted-foreground ml-2">Console</span>
             </Link>
             <div className="flex items-center gap-4">

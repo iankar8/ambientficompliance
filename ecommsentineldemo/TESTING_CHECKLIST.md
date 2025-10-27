@@ -1,4 +1,4 @@
-# 🧪 Sentinel Testing Checklist
+# 🧪 ArcanaSentinel Testing Checklist
 
 Use this checklist to verify everything works after setup.
 
@@ -22,7 +22,7 @@ Before testing, confirm:
 **URL:** `http://localhost:3000`
 
 - [ ] Page loads without errors
-- [ ] Sentinel logo and branding visible
+- [ ] ArcanaSentinel logo and branding visible
 - [ ] Hero section displays correctly
 - [ ] 3 feature cards show (Protocol, Evidence, Synthetic)
 - [ ] "Open Console" button works

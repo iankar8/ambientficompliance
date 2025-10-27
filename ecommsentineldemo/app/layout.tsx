@@ -5,14 +5,14 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Sentinel - Agentic Commerce Acceptance",
+  title: "ArcanaSentinel - Agentic Commerce Acceptance",
   description: "Agent-Ready in 1 Day - Accept AI agent orders without changing PSPs",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.Node;
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">

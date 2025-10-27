@@ -1,4 +1,4 @@
-# Sentinel Architecture
+# ArcanaSentinel Architecture
 
 ## System Overview
 

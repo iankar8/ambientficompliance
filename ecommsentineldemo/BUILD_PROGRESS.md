@@ -1,4 +1,4 @@
-# Sentinel - Build Progress Report
+# ArcanaSentinel - Build Progress Report
 
 **Build Date:** October 22, 2025  
 **Duration:** 2 hours  
@@ -74,7 +74,7 @@
 #### Layout & Navigation
 **`app/console/layout.tsx`**
 - Professional sidebar with icons
-- Sticky header with Sentinel branding
+- Sticky header with ArcanaSentinel branding
 - "Synthetic Mode" indicator
 - Responsive design
 

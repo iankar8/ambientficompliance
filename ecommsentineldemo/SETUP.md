@@ -1,6 +1,6 @@
-# Sentinel Setup Guide
+# ArcanaSentinel Setup Guide
 
-**Quick 5-minute setup to get Sentinel running with synthetic data**
+**Quick 5-minute setup to get ArcanaSentinel running with synthetic data**
 
 ---
 

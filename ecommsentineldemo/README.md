@@ -1,10 +1,10 @@
-# Sentinel - Agentic Commerce Acceptance Platform
+# ArcanaSentinel - Agentic Commerce Acceptance Platform
 
 **Agent-Ready in 1 Day** - Accept AI agent orders without changing PSPs or fraud tools.
 
 ## Overview
 
-Sentinel is a merchant acceptance layer for agentic commerce that provides:
+ArcanaSentinel is a merchant acceptance layer for agentic commerce that provides:
 
 - **Protocol Orchestration** - Unified API for Visa TAP, Mastercard Agent Pay, OpenAI ACP, Google AP2
 - **Content Legibility** - Auto-generate LLM-readable `/agent.json` feeds
