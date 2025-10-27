@@ -1,0 +1,22 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Sentinel - Agentic Commerce Acceptance",
+  description: "Agent-Ready in 1 Day - Accept AI agent orders without changing PSPs",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.Node;
+}>) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+    </html>
+  );
+}
