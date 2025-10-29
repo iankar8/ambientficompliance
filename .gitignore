@@ -39,4 +39,4 @@ logs/
 
 # Cache
 .cache/
-*.tsbuildinfo
+*.tsbuildinfoecommsentineldemo/
